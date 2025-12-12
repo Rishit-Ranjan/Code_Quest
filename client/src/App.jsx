@@ -11,6 +11,7 @@ import ForgotPassword from "@/pages/forgot-password/index";
 import AskQuestion from "@/pages/ask/index";
 import UserProfile from "@/pages/users/[id]/index";
 import QuestionDetails from "@/pages/questions/[id]/index";
+import LoginHistory from "@/pages/LoginHistory/LoginHistory";
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
                     <Route path="/ask" element={<AskQuestion />} />
                     <Route path="/users/:id" element={<UserProfile />} />
                     <Route path="/questions/:id" element={<QuestionDetails />} />
+                    <Route path="/login-history" element={<LoginHistory />} />
                 </Routes>
             </AuthProvider>
         </BrowserRouter>
