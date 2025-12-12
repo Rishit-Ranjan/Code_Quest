@@ -1,0 +1,58 @@
+{
+    "common": {
+        "login": "Log in",
+        "signup": "Sign up",
+        "logout": "Logout",
+        "email": "Email",
+        "password": "Password",
+        "submit": "Submit",
+        "cancel": "Cancel",
+        "save": "Save",
+        "delete": "Delete",
+        "edit": "Edit",
+        "search": "Search",
+        "loading": "Loading...",
+        "error": "Error",
+        "success": "Success"
+    },
+    "auth": {
+        "loginTitle": "Log in to your account",
+        "loginDescription": "Enter your email and password to access Stack Overflow",
+        "signupTitle": "Create your account",
+        "forgotPassword": "Forgot your password?",
+        "noAccount": "Don't have an account?",
+        "haveAccount": "Already have an account?",
+        "allFieldsRequired": "ALL Fields are required",
+        "loginSuccessful": "Login Successful",
+        "signupSuccessful": "Signup Successful",
+        "loginFailed": "Login failed",
+        "enterOTP": "Enter OTP",
+        "otpSentEmail": "Enter OTP sent to your email"
+    },
+    "home": {
+        "title": "Stack Overflow",
+        "topQuestions": "Top Questions",
+        "askQuestion": "Ask Question",
+        "allQuestions": "All Questions"
+    },
+    "questions": {
+        "askQuestion": "Ask a Question",
+        "title": "Title",
+        "body": "Body",
+        "tags": "Tags",
+        "post": "Post Your Question",
+        "answers": "Answers",
+        "views": "views",
+        "votes": "votes"
+    },
+    "language": {
+        "selectLanguage": "Select Language",
+        "switchLanguage": "Switch Language",
+        "verifyOTP": "Verify OTP to switch language",
+        "otpSent": "OTP sent",
+        "languageUpdated": "Language updated successfully",
+        "addPhoneFirst": "Please add and verify your phone number first",
+        "phoneNumber": "Phone Number",
+        "verifyPhone": "Verify Phone Number"
+    }
+}

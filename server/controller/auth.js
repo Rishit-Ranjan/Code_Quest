@@ -6,6 +6,7 @@ import userAgent from "user-agent";
 import requestIp from "request-ip";
 import nodemailer from "nodemailer";
 import LoginHistory from "../models/LoginHistory.js";
+import twilio from "twilio";
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -23,6 +24,15 @@ const sendOTP = async (email, otp) => {
     text: `Your OTP for login is: ${otp}`,
   };
   await transporter.sendMail(mailOptions);
+};
+
+const sendSMS = async (phoneNumber, otp) => {
+  const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+  await client.messages.create({
+    body: `Your language switch OTP is: ${otp}`,
+    from: process.env.TWILIO_PHONE_NUMBER,
+    to: phoneNumber,
+  });
 };
 export const Signup = async (req, res) => {
   const { name, email, password } = req.body;
@@ -255,5 +265,149 @@ export const forgotPassword = async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong..." });
+  }
+};
+
+export const requestLanguageSwitch = async (req, res) => {
+  const { targetLanguage } = req.body;
+  const userId = req.userId; // From auth middleware
+
+  try {
+    const existingUser = await user.findById(userId);
+    if (!existingUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Generate OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    existingUser.languageSwitchOtp = otp;
+    existingUser.languageSwitchOtpExpires = Date.now() + 10 * 60 * 1000; // 10 mins
+    await existingUser.save();
+
+    // French => Email OTP, Others => SMS OTP
+    if (targetLanguage === 'fr') {
+      try {
+        const mailOptions = {
+          from: process.env.EMAIL_USER,
+          to: existingUser.email,
+          subject: "Language Switch Verification",
+          text: `Your OTP to switch to French is: ${otp}`,
+        };
+        await transporter.sendMail(mailOptions);
+        return res.status(200).json({
+          message: "OTP sent to your email",
+          otpMethod: "email"
+        });
+      } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: "Failed to send email OTP" });
+      }
+    } else {
+      // SMS OTP for other languages
+      if (!existingUser.phoneNumber || !existingUser.phoneVerified) {
+        return res.status(400).json({
+          message: "Please add and verify your phone number first",
+          needsPhone: true
+        });
+      }
+
+      try {
+        await sendSMS(existingUser.phoneNumber, otp);
+        return res.status(200).json({
+          message: "OTP sent to your phone",
+          otpMethod: "sms"
+        });
+      } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: "Failed to send SMS OTP" });
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+};
+
+export const verifyLanguageSwitch = async (req, res) => {
+  const { otp, targetLanguage } = req.body;
+  const userId = req.userId;
+
+  try {
+    const existingUser = await user.findById(userId);
+    if (!existingUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (existingUser.languageSwitchOtp !== otp || existingUser.languageSwitchOtpExpires < Date.now()) {
+      return res.status(400).json({ message: "Invalid or expired OTP" });
+    }
+
+    // Clear OTP and update language
+    existingUser.languageSwitchOtp = undefined;
+    existingUser.languageSwitchOtpExpires = undefined;
+    existingUser.languagePreference = targetLanguage;
+    await existingUser.save();
+
+    res.status(200).json({
+      message: "Language updated successfully",
+      languagePreference: targetLanguage
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong" });
+  }
+};
+
+export const updatePhoneNumber = async (req, res) => {
+  const { phoneNumber } = req.body;
+  const userId = req.userId;
+
+  try {
+    const existingUser = await user.findById(userId);
+    if (!existingUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Generate verification OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    existingUser.phoneNumber = phoneNumber;
+    existingUser.phoneVerified = false;
+    existingUser.languageSwitchOtp = otp; // Reuse same field
+    existingUser.languageSwitchOtpExpires = Date.now() + 10 * 60 * 1000;
+    await existingUser.save();
+
+    try {
+      await sendSMS(phoneNumber, otp);
+      res.status(200).json({ message: "Verification OTP sent to your phone" });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Failed to send SMS" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong" });
+  }
+};
+
+export const verifyPhoneNumber = async (req, res) => {
+  const { otp } = req.body;
+  const userId = req.userId;
+
+  try {
+    const existingUser = await user.findById(userId);
+    if (!existingUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (existingUser.languageSwitchOtp !== otp || existingUser.languageSwitchOtpExpires < Date.now()) {
+      return res.status(400).json({ message: "Invalid or expired OTP" });
+    }
+
+    existingUser.phoneVerified = true;
+    existingUser.languageSwitchOtp = undefined;
+    existingUser.languageSwitchOtpExpires = undefined;
+    await existingUser.save();
+
+    res.status(200).json({ message: "Phone number verified successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong" });
   }
 };

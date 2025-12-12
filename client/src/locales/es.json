@@ -1,0 +1,58 @@
+{
+    "common": {
+        "login": "Iniciar sesión",
+        "signup": "Registrarse",
+        "logout": "Cerrar sesión",
+        "email": "Correo electrónico",
+        "password": "Contraseña",
+        "submit": "Enviar",
+        "cancel": "Cancelar",
+        "save": "Guardar",
+        "delete": "Eliminar",
+        "edit": "Editar",
+        "search": "Buscar",
+        "loading": "Cargando...",
+        "error": "Error",
+        "success": "Éxito"
+    },
+    "auth": {
+        "loginTitle": "Inicia sesión en tu cuenta",
+        "loginDescription": "Ingresa tu correo y contraseña para acceder a Stack Overflow",
+        "signupTitle": "Crea tu cuenta",
+        "forgotPassword": "¿Olvidaste tu contraseña?",
+        "noAccount": "¿No tienes una cuenta?",
+        "haveAccount": "¿Ya tienes una cuenta?",
+        "allFieldsRequired": "TODOS los campos son obligatorios",
+        "loginSuccessful": "Inicio de sesión exitoso",
+        "signupSuccessful": "Registro exitoso",
+        "loginFailed": "Error al iniciar sesión",
+        "enterOTP": "Ingresa OTP",
+        "otpSentEmail": "Ingresa el OTP enviado a tu correo"
+    },
+    "home": {
+        "title": "Stack Overflow",
+        "topQuestions": "Preguntas principales",
+        "askQuestion": "Hacer pregunta",
+        "allQuestions": "Todas las preguntas"
+    },
+    "questions": {
+        "askQuestion": "Hacer una pregunta",
+        "title": "Título",
+        "body": "Cuerpo",
+        "tags": "Etiquetas",
+        "post": "Publicar tu pregunta",
+        "answers": "Respuestas",
+        "views": "vistas",
+        "votes": "votos"
+    },
+    "language": {
+        "selectLanguage": "Seleccionar idioma",
+        "switchLanguage": "Cambiar idioma",
+        "verifyOTP": "Verificar OTP para cambiar idioma",
+        "otpSent": "OTP enviado",
+        "languageUpdated": "Idioma actualizado exitosamente",
+        "addPhoneFirst": "Por favor agrega y verifica tu número de teléfono primero",
+        "phoneNumber": "Número de teléfono",
+        "verifyPhone": "Verificar número de teléfono"
+    }
+}

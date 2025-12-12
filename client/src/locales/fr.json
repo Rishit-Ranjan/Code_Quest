@@ -1,0 +1,58 @@
+{
+    "common": {
+        "login": "Connexion",
+        "signup": "S'inscrire",
+        "logout": "Déconnexion",
+        "email": "E-mail",
+        "password": "Mot de passe",
+        "submit": "Soumettre",
+        "cancel": "Annuler",
+        "save": "Enregistrer",
+        "delete": "Supprimer",
+        "edit": "Modifier",
+        "search": "Rechercher",
+        "loading": "Chargement...",
+        "error": "Erreur",
+        "success": "Succès"
+    },
+    "auth": {
+        "loginTitle": "Connectez-vous à votre compte",
+        "loginDescription": "Entrez votre e-mail et mot de passe pour accéder à Stack Overflow",
+        "signupTitle": "Créez votre compte",
+        "forgotPassword": "Mot de passe oublié?",
+        "noAccount": "Vous n'avez pas de compte?",
+        "haveAccount": "Vous avez déjà un compte?",
+        "allFieldsRequired": "TOUS les champs sont obligatoires",
+        "loginSuccessful": "Connexion réussie",
+        "signupSuccessful": "Inscription réussie",
+        "loginFailed": "Échec de la connexion",
+        "enterOTP": "Entrez OTP",
+        "otpSentEmail": "Entrez l'OTP envoyé à votre e-mail"
+    },
+    "home": {
+        "title": "Stack Overflow",
+        "topQuestions": "Meilleures questions",
+        "askQuestion": "Poser une question",
+        "allQuestions": "Toutes les questions"
+    },
+    "questions": {
+        "askQuestion": "Poser une question",
+        "title": "Titre",
+        "body": "Corps",
+        "tags": "Étiquettes",
+        "post": "Publier votre question",
+        "answers": "Réponses",
+        "views": "vues",
+        "votes": "votes"
+    },
+    "language": {
+        "selectLanguage": "Sélectionner la langue",
+        "switchLanguage": "Changer de langue",
+        "verifyOTP": "Vérifier OTP pour changer de langue",
+        "otpSent": "OTP envoyé",
+        "languageUpdated": "Langue mise à jour avec succès",
+        "addPhoneFirst": "Veuillez d'abord ajouter et vérifier votre numéro de téléphone",
+        "phoneNumber": "Numéro de téléphone",
+        "verifyPhone": "Vérifier le numéro de téléphone"
+    }
+}

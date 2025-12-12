@@ -1,0 +1,58 @@
+{
+    "common": {
+        "login": "लॉग इन करें",
+        "signup": "साइन अप करें",
+        "logout": "लॉग आउट",
+        "email": "ईमेल",
+        "password": "पासवर्ड",
+        "submit": "जमा करें",
+        "cancel": "रद्द करें",
+        "save": "सहेजें",
+        "delete": "हटाएं",
+        "edit": "संपादित करें",
+        "search": "खोजें",
+        "loading": "लोड हो रहा है...",
+        "error": "त्रुटि",
+        "success": "सफलता"
+    },
+    "auth": {
+        "loginTitle": "अपने खाते में लॉग इन करें",
+        "loginDescription": "Stack Overflow तक पहुंचने के लिए अपना ईमेल और पासवर्ड दर्ज करें",
+        "signupTitle": "अपना खाता बनाएं",
+        "forgotPassword": "अपना पासवर्ड भूल गए?",
+        "noAccount": "खाता नहीं है?",
+        "haveAccount": "पहले से खाता है?",
+        "allFieldsRequired": "सभी फ़ील्ड आवश्यक हैं",
+        "loginSuccessful": "लॉगिन सफल",
+        "signupSuccessful": "साइनअप सफल",
+        "loginFailed": "लॉगिन विफल",
+        "enterOTP": "OTP दर्ज करें",
+        "otpSentEmail": "अपने ईमेल पर भेजा गया OTP दर्ज करें"
+    },
+    "home": {
+        "title": "Stack Overflow",
+        "topQuestions": "शीर्ष प्रश्न",
+        "askQuestion": "प्रश्न पूछें",
+        "allQuestions": "सभी प्रश्न"
+    },
+    "questions": {
+        "askQuestion": "एक प्रश्न पूछें",
+        "title": "शीर्षक",
+        "body": "विवरण",
+        "tags": "टैग",
+        "post": "अपना प्रश्न पोस्ट करें",
+        "answers": "उत्तर",
+        "views": "दृश्य",
+        "votes": "वोट"
+    },
+    "language": {
+        "selectLanguage": "भाषा चुनें",
+        "switchLanguage": "भाषा बदलें",
+        "verifyOTP": "भाषा बदलने के लिए OTP सत्यापित करें",
+        "otpSent": "OTP भेजा गया",
+        "languageUpdated": "भाषा सफलतापूर्वक अपडेट की गई",
+        "addPhoneFirst": "कृपया पहले अपना फ़ोन नंबर जोड़ें और सत्यापित करें",
+        "phoneNumber": "फ़ोन नंबर",
+        "verifyPhone": "फ़ोन नंबर सत्यापित करें"
+    }
+}

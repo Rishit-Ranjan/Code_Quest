@@ -10,5 +10,10 @@ const userschema = mongoose.Schema({
   lastPasswordResetRequest: { type: Date },
   otp: { type: String },
   otpExpires: { type: Date },
+  phoneNumber: { type: String },
+  phoneVerified: { type: Boolean, default: false },
+  languagePreference: { type: String, default: 'en' },
+  languageSwitchOtp: { type: String },
+  languageSwitchOtpExpires: { type: Date },
 });
 export default mongoose.model("user", userschema);
