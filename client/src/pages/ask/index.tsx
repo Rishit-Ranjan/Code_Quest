@@ -8,12 +8,12 @@ import Mainlayout from "@/layout/Mainlayout";
 import { useAuth } from "@/lib/AuthContext";
 import axiosInstance from "@/lib/axiosinstance";
 import { Plus, X } from "lucide-react";
-import { useRouter } from "next/router";
+import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 const index = () => {
-  const router = useRouter();
+  const navigate = useNavigate();
   const { user } = useAuth();
   const [formData, setFormData] = useState({
     title: "",
@@ -39,7 +39,7 @@ const index = () => {
     e.preventDefault();
     if (!user) {
       toast.error("PLlease login to ask question");
-      router.push("/auth");
+      navigate("/auth");
       return;
     }
     try {
@@ -54,7 +54,7 @@ const index = () => {
       });
       if (res.data.data) {
         toast.success("Question posted successfully");
-        router.push("/");
+        navigate("/");
       }
     } catch (error) {
       console.log(error);

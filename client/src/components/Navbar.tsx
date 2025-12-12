@@ -1,6 +1,6 @@
 import { useAuth } from "@/lib/AuthContext";
 import { Menu, Search } from "lucide-react";
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 // const User = {
@@ -28,7 +28,7 @@ const Navbar = ({ handleslidein }: any) => {
           <Menu className="w-5 h-5 text-gray-800" />
         </button>
         <div className="flex items-center gap-2 flex-grow">
-          <Link href="/" className="px-3 py-1">
+          <Link to="/" className="px-3 py-1">
             <img src="/logo.png" alt="Logo" className="h-6 w-auto" />
           </Link>
 
@@ -36,7 +36,7 @@ const Navbar = ({ handleslidein }: any) => {
             {["About", "Products", "For Teams"].map((item) => (
               <Link
                 key={item}
-                href="/"
+                to="/"
                 className="text-sm text-[#454545] font-medium px-4 py-2 rounded hover:bg-gray-200 transition"
               >
                 {item}
@@ -53,9 +53,9 @@ const Navbar = ({ handleslidein }: any) => {
           </form>
         </div>
         <div className="flex items-center gap-2">
-           {!hasMounted ? null : !user ? (
+          {!hasMounted ? null : !user ? (
             <Link
-              href="/auth"
+              to="/auth"
               className="text-sm font-medium text-[#454545] bg-[#e7f8fe] hover:bg-[#d3e4eb] border border-blue-500 px-4 py-1.5 rounded transition"
             >
               Log in
@@ -63,7 +63,7 @@ const Navbar = ({ handleslidein }: any) => {
           ) : (
             <>
               <Link
-                href={`/users/${user._id}`}
+                to={`/users/${user._id}`}
                 className="flex items-center justify-center bg-orange-600 text-white text-sm font-semibold w-9 h-9 rounded-full"
               >
                 {user.name?.charAt(0).toUpperCase()}

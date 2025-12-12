@@ -11,7 +11,7 @@ import {
   Trophy,
   Users,
 } from "lucide-react";
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import React from "react";
 import { Badge } from "./ui/badge";
 
@@ -28,7 +28,7 @@ const Sidebar = ({ isopen }: any) => {
           <ul className="space-y-1">
             <li>
               <Link
-                href="/"
+                to="/"
                 className="flex items-center px-2 py-2 text-gray-700 hover:bg-gray-100 rounded text-sm"
               >
                 <Home className="w-4 h-4 mr-2 lg:mr-3" />
@@ -37,7 +37,7 @@ const Sidebar = ({ isopen }: any) => {
             </li>
             <li>
               <Link
-                href="/questions"
+                to="/questions"
                 className="flex items-center px-2 py-2 text-gray-700 hover:bg-gray-100 rounded text-sm"
               >
                 <MessageSquareIcon className="w-4 h-4 mr-2 lg:mr-3" />
@@ -46,7 +46,7 @@ const Sidebar = ({ isopen }: any) => {
             </li>
             <li>
               <Link
-                href="#"
+                to="#"
                 className="flex items-center px-2 py-2 text-gray-700 hover:bg-gray-100 rounded text-sm"
               >
                 <Bot className="w-4 h-4 mr-2 lg:mr-3" />
@@ -58,7 +58,7 @@ const Sidebar = ({ isopen }: any) => {
             </li>
             <li>
               <Link
-                href="/tags"
+                to="/tags"
                 className="flex items-center px-2 py-2 text-gray-700 hover:bg-gray-100 rounded text-sm"
               >
                 <Tag className="w-4 h-4 mr-2 lg:mr-3" />
@@ -67,7 +67,7 @@ const Sidebar = ({ isopen }: any) => {
             </li>
             <li>
               <Link
-                href="/users"
+                to="/users"
                 className="flex items-center px-2 py-2 text-gray-700 hover:bg-gray-100 rounded text-sm"
               >
                 <Users className="w-4 h-4 mr-2 lg:mr-3" />
@@ -76,7 +76,7 @@ const Sidebar = ({ isopen }: any) => {
             </li>
             <li>
               <Link
-                href="#"
+                to="#"
                 className="flex items-center px-2 py-2 text-gray-700 hover:bg-gray-100 rounded text-sm"
               >
                 <Bookmark className="w-4 h-4 mr-2 lg:mr-3" />
@@ -85,7 +85,7 @@ const Sidebar = ({ isopen }: any) => {
             </li>
             <li>
               <Link
-                href="#"
+                to="#"
                 className="flex items-center px-2 py-2 text-gray-700 hover:bg-gray-100 rounded text-sm"
               >
                 <Trophy className="w-4 h-4 mr-2 lg:mr-3" />
@@ -100,7 +100,7 @@ const Sidebar = ({ isopen }: any) => {
             </li>
             <li>
               <Link
-                href="#"
+                to="#"
                 className="flex items-center px-2 py-2 text-gray-700 hover:bg-gray-100 rounded text-sm"
               >
                 <MessageSquare className="w-4 h-4 mr-2 lg:mr-3" />
@@ -109,7 +109,7 @@ const Sidebar = ({ isopen }: any) => {
             </li>
             <li>
               <Link
-                href="#"
+                to="#"
                 className="flex items-center px-2 py-2 text-gray-700 hover:bg-gray-100 rounded text-sm"
               >
                 <FileText className="w-4 h-4 mr-2 lg:mr-3" />
@@ -119,7 +119,7 @@ const Sidebar = ({ isopen }: any) => {
 
             <li>
               <Link
-                href="#"
+                to="#"
                 className="flex items-center px-2 py-2 text-gray-700 hover:bg-gray-100 rounded text-sm"
               >
                 <Building className="w-4 h-4 mr-2 lg:mr-3" />

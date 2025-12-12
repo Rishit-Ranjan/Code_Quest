@@ -2,8 +2,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import Mainlayout from "@/layout/Mainlayout";
 import axiosInstance from "@/lib/axiosinstance";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const questions = [
@@ -70,7 +69,7 @@ const questions = [
 export default function Home() {
   const [question, setquestion] = useState<any>(null);
   const [loading, setloading] = useState(true);
-  const router = useRouter();
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchquestion = async () => {
       try {
@@ -105,7 +104,7 @@ export default function Home() {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
           <h1 className="text-xl lg:text-2xl font-semibold">Top Questions</h1>
           <button
-            onClick={() => router.push("/ask")}
+            onClick={() => navigate("/ask")}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm font-medium whitespace-nowrap"
           >
             Ask Question
@@ -151,11 +150,10 @@ export default function Home() {
                     </div>
                     <div className="text-center">
                       <div
-                        className={`font-medium ${
-                          question.answer.length > 0
+                        className={`font-medium ${question.answer.length > 0
                             ? "text-green-600 bg-green-100 px-2 py-1 rounded"
                             : ""
-                        }`}
+                          }`}
                       >
                         {question.noofanswer}
                       </div>
@@ -168,7 +166,7 @@ export default function Home() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <Link
-                      href={`/questions/${question._id}`}
+                      to={`/questions/${question._id}`}
                       className="text-blue-600 hover:text-blue-800 text-base lg:text-lg font-medium mb-2 block"
                     >
                       {question.questiontitle}
@@ -193,7 +191,7 @@ export default function Home() {
 
                       <div className="flex items-center text-xs text-gray-600 flex-shrink-0">
                         <Link
-                          href={`/users/${question.userid}`}
+                          to={`/users/${question.userid}`}
                           className="flex items-center"
                         >
                           <Avatar className="w-4 h-4 mr-1">

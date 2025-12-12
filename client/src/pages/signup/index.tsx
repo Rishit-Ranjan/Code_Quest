@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,11 +12,10 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { useAuth } from "@/lib/AuthContext";
 import { useState } from "react";
-import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 
 export default function SignUpPage() {
-  const router = useRouter();
+  const navigate = useNavigate();
   const { Signup, loading } = useAuth();
   const [form, setform] = useState({ name: "", email: "", password: "" });
   const handleChange = (e: any) => {
@@ -30,7 +29,7 @@ export default function SignUpPage() {
     }
     try {
       await Signup(form);
-      router.push("/");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -39,7 +38,7 @@ export default function SignUpPage() {
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-6 lg:mb-8">
-          <Link href="/" className="flex items-center justify-center mb-4">
+          <Link to="/" className="flex items-center justify-center mb-4">
             <div className="w-6 h-6 lg:w-8 lg:h-8 bg-orange-500 rounded mr-2 flex items-center justify-center">
               <div className="w-4 h-4 lg:w-6 lg:h-6 bg-white rounded-sm flex items-center justify-center">
                 <div className="w-3 h-3 lg:w-4 lg:h-4 bg-orange-500 rounded-sm"></div>
@@ -158,11 +157,11 @@ export default function SignUpPage() {
                 <Checkbox id="terms" className="mt-1" />
                 <Label htmlFor="terms" className="text-sm leading-relaxed">
                   I agree to the{" "}
-                  <Link href="#" className="text-blue-600 hover:underline">
+                  <Link to="#" className="text-blue-600 hover:underline">
                     Terms of Service
                   </Link>{" "}
                   and{" "}
-                  <Link href="#" className="text-blue-600 hover:underline">
+                  <Link to="#" className="text-blue-600 hover:underline">
                     Privacy Policy
                   </Link>
                 </Label>
@@ -177,7 +176,7 @@ export default function SignUpPage() {
 
               <div className="text-center text-sm">
                 Already have an account?{" "}
-                <Link href="/login" className="text-blue-600 hover:underline">
+                <Link to="/auth" className="text-blue-600 hover:underline">
                   Log in
                 </Link>
               </div>

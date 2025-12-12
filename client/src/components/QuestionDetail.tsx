@@ -11,12 +11,11 @@ import {
 import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
-import Link from "next/link";
+import { Link, useNavigate } from "react-router-dom";
 import { Badge } from "./ui/badge";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { Textarea } from "./ui/textarea";
 import { toast } from "react-toastify";
-import { useRouter } from "next/router";
 import axiosInstance from "@/lib/axiosinstance";
 import Mainlayout from "@/layout/Mainlayout";
 import { useAuth } from "@/lib/AuthContext";
@@ -250,7 +249,7 @@ This approach is more robust and handles many edge cases automatically.`,
   },
 ];
 const QuestionDetail = ({ questionId }: any) => {
-  const router = useRouter();
+  const navigate = useNavigate();
   const [question, setquestion] = useState<any>(null);
   const [answer, setanswer] = useState<any>();
   const [newanswer, setnewAnswer] = useState("");
@@ -286,9 +285,9 @@ const QuestionDetail = ({ questionId }: any) => {
   }
 
   const handleVote = async (vote: String) => {
-    if(!user){
+    if (!user) {
       toast.info("Please login to continue")
-      router.push("/auth")
+      navigate("/auth")
       return
     }
     try {
@@ -309,9 +308,9 @@ const QuestionDetail = ({ questionId }: any) => {
     setquestion((prev: any) => ({ ...prev, isBookmarked: !prev.isBookmarked }));
   };
   const handleSubmitanswer = async () => {
-    if(!user){
+    if (!user) {
       toast.info("Please login to continue")
-      router.push("/auth")
+      navigate("/auth")
       return
     }
     if (!newanswer.trim()) return;
@@ -349,9 +348,9 @@ const QuestionDetail = ({ questionId }: any) => {
     }
   };
   const handleDelete = async () => {
-    if(!user){
+    if (!user) {
       toast.info("Please login to continue")
-      router.push("/auth")
+      navigate("/auth")
       return
     }
     if (!window.confirm("Are you sure you want to delete this question?"))
@@ -362,7 +361,7 @@ const QuestionDetail = ({ questionId }: any) => {
       );
       if (res.data.message) {
         toast.success(res.data.message);
-        router.push("/");
+        navigate("/");
       }
     } catch (error) {
       console.error(error);
@@ -370,9 +369,9 @@ const QuestionDetail = ({ questionId }: any) => {
     }
   };
   const handleDeleteanswer = async (id: String) => {
-    if(!user){
+    if (!user) {
       toast.info("Please login to continue")
-      router.push("/auth")
+      navigate("/auth")
       return
     }
     if (!window.confirm("Are you sure you want to delete this answer?"))
@@ -444,11 +443,10 @@ const QuestionDetail = ({ questionId }: any) => {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className={`p-2 ${
-                    question?.isBookmarked
-                      ? "text-yellow-500"
-                      : "text-gray-600 hover:text-yellow-500"
-                  }`}
+                  className={`p-2 ${question?.isBookmarked
+                    ? "text-yellow-500"
+                    : "text-gray-600 hover:text-yellow-500"
+                    }`}
                   onClick={handlebookmark}
                 >
                   <Bookmark
@@ -495,7 +493,7 @@ const QuestionDetail = ({ questionId }: any) => {
               </div>
               <div className="flex flex-wrap gap-2 mb-6">
                 {question.questiontags.map((tag: any) => (
-                  <Link key={tag} href={`/tags/${tag}`}>
+                  <Link key={tag} to={`/tags/${tag}`}>
                     <Badge
                       variant="secondary"
                       className="bg-blue-100 text-blue-800 hover:bg-blue-200 cursor-pointer"
@@ -541,7 +539,7 @@ const QuestionDetail = ({ questionId }: any) => {
                     asked {new Date(question.askedon).toLocaleDateString()}
                   </span>
                   <Link
-                    href={`/users/${question.userid}`}
+                    to={`/users/${question.userid}`}
                     className="flex items-center gap-2 hover:bg-blue-50 p-2 rounded"
                   >
                     <Avatar className="w-8 h-8">
@@ -635,7 +633,7 @@ const QuestionDetail = ({ questionId }: any) => {
                           answerd {ans.answeredon}
                         </span>
                         <Link
-                          href={`/users/${ans.userid}`}
+                          to={`/users/${ans.userid}`}
                           className="flex items-center gap-2 hover:bg-blue-50 p-2 rounded"
                         >
                           <Avatar className="w-8 h-8">
@@ -679,11 +677,11 @@ const QuestionDetail = ({ questionId }: any) => {
             </Button>
             <p className="text-sm text-gray-600">
               By posting your answer, you agree to the{" "}
-              <Link href="#" className="text-blue-600 hover:underline">
+              <Link to="#" className="text-blue-600 hover:underline">
                 privacy policy
               </Link>{" "}
               and{" "}
-              <Link href="#" className="text-blue-600 hover:underline">
+              <Link to="#" className="text-blue-600 hover:underline">
                 terms of service
               </Link>
               .

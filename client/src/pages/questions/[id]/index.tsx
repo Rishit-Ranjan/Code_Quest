@@ -1,15 +1,14 @@
 import QuestionDetail from "@/components/QuestionDetail";
 import Mainlayout from "@/layout/Mainlayout";
-import { useRouter } from "next/router";
+import { useParams } from "react-router-dom";
 import React from "react";
 
 const index = () => {
-  const router = useRouter();
-  const { id } = router.query;
+  const { id } = useParams();
   return (
     <Mainlayout>
       <div>
-        <QuestionDetail questionId={Array.isArray(id) ? id[0] : id} />
+        <QuestionDetail questionId={id || ""} />
       </div>
     </Mainlayout>
   );

@@ -16,7 +16,7 @@ import Mainlayout from "@/layout/Mainlayout";
 import { useAuth } from "@/lib/AuthContext";
 import axiosInstance from "@/lib/axiosinstance";
 import { Calendar, Edit, Plus, X } from "lucide-react";
-import { useRouter } from "next/router";
+import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 const getUserData = (id: string) => {
@@ -41,8 +41,7 @@ const getUserData = (id: string) => {
 };
 const index = () => {
   const { user } = useAuth();
-  const router = useRouter();
-  const { id } = router.query;
+  const { id } = useParams();
   const [users, setusers] = useState<any>(null);
   const [loading, setloading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);

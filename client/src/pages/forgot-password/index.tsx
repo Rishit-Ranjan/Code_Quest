@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import React, { useState, FormEvent } from "react";
 import { toast } from "react-toastify";
 import axiosInstance from "@/lib/axiosinstance";
@@ -64,7 +64,7 @@ const ForgotPasswordPage = () => {
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-6 lg:mb-8">
-          <Link href="/" className="flex items-center justify-center mb-4">
+          <Link to="/" className="flex items-center justify-center mb-4">
             <div className="w-6 h-6 lg:w-8 lg:h-8 bg-orange-500 rounded mr-2 flex items-center justify-center">
               <div className="w-4 h-4 lg:w-6 lg:h-6 bg-white rounded-sm flex items-center justify-center">
                 <div className="w-3 h-3 lg:w-4 lg:h-4 bg-orange-500 rounded-sm"></div>
@@ -134,7 +134,7 @@ const ForgotPasswordPage = () => {
               {error && <p className="text-red-500">{error}</p>}
               <div className="text-center text-sm">
                 Remember your password?{" "}
-                <Link href="/auth" className="text-blue-600 hover:underline">
+                <Link to="/auth" className="text-blue-600 hover:underline">
                   Log in
                 </Link>
               </div>
