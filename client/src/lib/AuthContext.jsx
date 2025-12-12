@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
       });
 
       // Check for OTP requirement
-      if (res.data.needsOTP) {
+      if (res.data.otpRequired) {
         setloading(false);
         return res.data; // Return data to let UI handle OTP
       }

@@ -8,5 +8,7 @@ const userschema = mongoose.Schema({
   tags: { type: [String] },
   joinDate: { type: Date, default: Date.now },
   lastPasswordResetRequest: { type: Date },
+  otp: { type: String },
+  otpExpires: { type: Date },
 });
 export default mongoose.model("user", userschema);

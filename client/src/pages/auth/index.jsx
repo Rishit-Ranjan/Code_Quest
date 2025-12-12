@@ -15,22 +15,44 @@ import { toast } from "react-toastify";
 
 const index = () => {
   const navigate = useNavigate();
-  const { Login, loading } = useAuth();
+  const { Login, VerifyOTP, loading } = useAuth();
   const [form, setform] = useState({ email: "", password: "" });
+  const [otp, setOtp] = useState("");
+  const [showOtp, setShowOtp] = useState(false);
+  const [userId, setUserId] = useState(null);
   const handleChange = (e) => {
     setform({ ...form, [e.target.id]: e.target.value });
   };
   const handlesubmit = async (e) => {
     e.preventDefault();
-    if (!form.email || !form.password) {
-      toast.error("ALL Fields are required");
-      return;
-    }
-    try {
-      await Login(form);
-      navigate("/");
-    } catch (error) {
-      console.log(error);
+    if (!showOtp) {
+      if (!form.email || !form.password) {
+        toast.error("ALL Fields are required");
+        return;
+      }
+      try {
+        const res = await Login(form);
+        if (res && res.otpRequired) {
+          setShowOtp(true);
+          setUserId(res.userId);
+          toast.info(res.message);
+        } else {
+          navigate("/");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      if (!otp) {
+        toast.error("Enter OTP");
+        return;
+      }
+      try {
+        await VerifyOTP({ userId, otp });
+        navigate("/");
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
   return (
@@ -123,17 +145,34 @@ const index = () => {
                   value={form.email}
                 />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="password" className="text-sm">
-                  Password
-                </Label>
-                <Input
-                  id="password"
-                  type="password"
-                  onChange={handleChange}
-                  value={form.password}
-                />
-              </div>
+              {!showOtp ? (
+                <>
+                  <div className="space-y-2">
+                    <Label htmlFor="password" className="text-sm">
+                      Password
+                    </Label>
+                    <Input
+                      id="password"
+                      type="password"
+                      onChange={handleChange}
+                      value={form.password}
+                    />
+                  </div>
+                </>
+              ) : (
+                <div className="space-y-2">
+                  <Label htmlFor="otp" className="text-sm">
+                    Enter OTP sent to your email
+                  </Label>
+                  <Input
+                    id="otp"
+                    type="text"
+                    placeholder="123456"
+                    onChange={(e) => setOtp(e.target.value)}
+                    value={otp}
+                  />
+                </div>
+              )}
               <Button
                 type="submit"
                 className="w-full bg-blue-600 hover:bg-blue-700 text-sm"
@@ -158,7 +197,7 @@ const index = () => {
           </Card>
         </form>
       </div>
-    </div>
+    </div >
   );
 };
 

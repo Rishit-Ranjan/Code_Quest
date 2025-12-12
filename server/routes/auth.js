@@ -5,13 +5,18 @@ import {
   Signup,
   updateprofile,
   forgotPassword,
+  verifyOTP,
+  getLoginHistory,
 } from "../controller/auth.js";
 
 const router = express.Router();
 import auth from "../middleware/auth.js";
 router.post("/signup", Signup);
 router.post("/login", Login);
+router.post("/verify-otp", verifyOTP);
+router.get("/history", auth, getLoginHistory);
+
 router.post("/forgot-password", forgotPassword);
 router.get("/getalluser", getallusers);
-router.patch("/update/:id", auth,updateprofile);
+router.patch("/update/:id", auth, updateprofile);
 export default router;
