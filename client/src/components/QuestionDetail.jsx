@@ -63,7 +63,7 @@ const QuestionDetail = ({ questionId }) => {
       return
     }
     try {
-      const res = await axiosInstance.patch(`/ question / vote / ${question._id}`, {
+      const res = await axiosInstance.patch(`/question/vote/${question._id}`, {
         value: vote,
         userid: user?._id,
       });
@@ -89,7 +89,7 @@ const QuestionDetail = ({ questionId }) => {
     setisSubmitting(true);
     try {
       const res = await axiosInstance.post(
-        `/ answer / postanswer / ${question?._id}`,
+        `/answer/postanswer/${question?._id}`,
         {
           noofanswer: question.noofanswer,
           answerbody: newanswer,
@@ -128,9 +128,7 @@ const QuestionDetail = ({ questionId }) => {
     if (!window.confirm("Are you sure you want to delete this question?"))
       return;
     try {
-      const res = await axiosInstance.delete(
-        `/ question / delete/${question._id}`
-      );
+      const res = await axiosInstance.delete(`/question/delete/${question._id}`);
       if (res.data.message) {
         toast.success(res.data.message);
         navigate("/");

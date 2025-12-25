@@ -1,7 +1,8 @@
 import { useAuth } from "@/lib/AuthContext";
-import { Menu, Search } from "lucide-react";
+import { Menu, Search, Bell } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { formatDistanceToNow } from "date-fns";
 
 // const User = {
 //   _id: "1",
@@ -10,10 +11,19 @@ import { useEffect, useState } from "react";
 
 const Navbar = ({ handleslidein }) => {
   const { user, Logout } = useAuth();
+  const { notifications, fetchNotifications, markNotificationRead } = useAuth();
   const [hasMounted, setHasMounted] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
   useEffect(() => {
     setHasMounted(true);
   }, []);
+  useEffect(() => {
+    if (user) fetchNotifications();
+    const iv = setInterval(() => {
+      if (user) fetchNotifications();
+    }, 15000);
+    return () => clearInterval(iv);
+  }, [user]);
   const handlelogout = () => {
     Logout();
   };
@@ -52,7 +62,7 @@ const Navbar = ({ handleslidein }) => {
             <Search className="absolute left-4 top-2.5 h-4 w-4 text-gray-600" />
           </form>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 relative">
           {!hasMounted ? null : !user ? (
             <Link
               to="/auth"
@@ -62,6 +72,17 @@ const Navbar = ({ handleslidein }) => {
             </Link>
           ) : (
             <>
+              <button
+                onClick={() => setShowDropdown((s) => !s)}
+                aria-label="Notifications"
+                className="relative p-2 rounded hover:bg-gray-100"
+              >
+                <Bell className="w-5 h-5 text-gray-700" />
+                {notifications && notifications.filter((n) => !n.read).length > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">{notifications.filter((n) => !n.read).length}</span>
+                )}
+              </button>
+
               <Link
                 to={`/users/${user._id}`}
                 className="flex items-center justify-center bg-orange-600 text-white text-sm font-semibold w-9 h-9 rounded-full"
@@ -75,6 +96,42 @@ const Navbar = ({ handleslidein }) => {
               >
                 Log out
               </button>
+              {showDropdown && (
+                <div className="absolute right-0 mt-12 w-80 bg-white border rounded shadow-lg z-50">
+                  <div className="p-3 border-b flex items-center justify-between">
+                    <div className="font-semibold">Notifications</div>
+                    <button
+                      onClick={async () => {
+                        const unread = (notifications || []).filter((n) => !n.read);
+                        for (const n of unread) {
+                          await markNotificationRead(n._id);
+                        }
+                      }}
+                      className="text-sm text-blue-600"
+                    >
+                      Mark all read
+                    </button>
+                  </div>
+                  <div className="max-h-64 overflow-auto">
+                    {(notifications || []).length === 0 && (
+                      <div className="p-4 text-center text-gray-500">No notifications</div>
+                    )}
+                    {(notifications || []).map((n) => (
+                      <div
+                        key={n._id}
+                        onClick={async () => {
+                          if (!n.read) await markNotificationRead(n._id);
+                          window.location.href = n.link || "/";
+                        }}
+                        className={`p-3 border-b cursor-pointer hover:bg-gray-50 ${n.read ? "bg-white" : "bg-gray-50"}`}
+                      >
+                        <div className="text-sm text-gray-800">{n.message}</div>
+                        <div className="text-xs text-gray-500">{formatDistanceToNow(new Date(n.createdAt), { addSuffix: true })}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </>
           )}
         </div>

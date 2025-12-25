@@ -1,7 +1,6 @@
-import { useState, createContext, useContext } from "react";
+import { useState, createContext, useContext, useEffect } from "react";
 import axiosInstance from "./axiosinstance";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
 
 const AuthContext = createContext(undefined);
 
@@ -16,6 +15,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState(null);
   const [shownNotifications, setShownNotifications] = useState(new Set());
+  const [notifications, setNotifications] = useState([]);
 
   const Signup = async ({ name, email, password }) => {
     setloading(true);
@@ -113,6 +113,7 @@ export const AuthProvider = ({ children }) => {
       try {
         const res = await axiosInstance.get("/user/notifications");
         const notifs = res.data.data || [];
+        setNotifications(notifs);
         for (const n of notifs) {
           if (!n.read && !shownNotifications.has(n._id)) {
             // Request permission if needed
@@ -129,13 +130,8 @@ export const AuthProvider = ({ children }) => {
                 };
               }
             }
-            // mark as shown locally and mark read on server
+            // mark as shown locally only (server read state stays until user opens in-app)
             setShownNotifications((prev) => new Set(prev).add(n._id));
-            try {
-              await axiosInstance.patch(`/user/notifications/mark-read/${n._id}`);
-            } catch (e) {
-              // ignore
-            }
           }
         }
       } catch (error) {
@@ -150,9 +146,31 @@ export const AuthProvider = ({ children }) => {
       if (polling) clearInterval(polling);
     };
   }, [user, shownNotifications]);
+
+  const fetchNotifications = async () => {
+    try {
+      const res = await axiosInstance.get("/user/notifications");
+      setNotifications(res.data.data || []);
+      return res.data.data || [];
+    } catch (err) {
+      return [];
+    }
+  };
+
+  const markNotificationRead = async (id) => {
+    try {
+      const res = await axiosInstance.patch(`/user/notifications/mark-read/${id}`);
+      // update local state
+      setNotifications((prev) => prev.map((n) => (n._id === id ? { ...n, read: true } : n)));
+      return res.data.data;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  };
   return (
     <AuthContext.Provider
-      value={{ user, Signup, Login, VerifyOTP, Logout, updateUser, loading, error }}
+      value={{ user, Signup, Login, VerifyOTP, Logout, updateUser, loading, error, notifications, fetchNotifications, markNotificationRead }}
     >
       {children}
     </AuthContext.Provider>
