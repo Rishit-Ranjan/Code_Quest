@@ -232,6 +232,25 @@ export const updateprofile = async (req, res) => {
   }
 };
 
+export const uploadAvatar = async (req, res) => {
+  const { id: _id } = req.params;
+  if (!req.file) {
+    return res.status(400).json({ message: "No file uploaded" });
+  }
+  try {
+    const fileUrl = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
+    const updated = await user.findByIdAndUpdate(
+      _id,
+      { $set: { avatarUrl: fileUrl } },
+      { new: true }
+    );
+    res.status(200).json({ data: updated });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Failed to upload avatar" });
+  }
+};
+
 export const forgotPassword = async (req, res) => {
   const { email } = req.body;
   try {

@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -50,6 +50,8 @@ const index = () => {
     about: users?.about || "",
     tags: users?.tags || [],
   });
+  const [avatarFile, setAvatarFile] = useState(null);
+  const { updateUser } = useAuth();
   const [newTag, setNewTag] = useState("");
 
   useEffect(() => {
@@ -123,12 +125,16 @@ const index = () => {
         {/* User Header */}
         <div className="flex flex-col lg:flex-row items-start lg:items-center gap-6 mb-8">
           <Avatar className="w-24 h-24 lg:w-32 lg:h-32">
-            <AvatarFallback className="text-2xl lg:text-3xl">
-              {users.name
-                .split(" ")
-                .map((n) => n[0])
-                .join("")}
-            </AvatarFallback>
+            {users.avatarUrl ? (
+              <AvatarImage src={users.avatarUrl} alt={users.name} />
+            ) : (
+              <AvatarFallback className="text-2xl lg:text-3xl">
+                {users.name
+                  .split(" ")
+                  .map((n) => n[0])
+                  .join("")}
+              </AvatarFallback>
+            )}
           </Avatar>
 
           <div className="flex-1 min-w-0">
@@ -160,6 +166,62 @@ const index = () => {
                         <h3 className="text-lg font-semibold">
                           Basic Information
                         </h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <div>
+                            <Label>Profile Picture</Label>
+                            <div className="flex items-center gap-3">
+                              <div className="w-16 h-16 rounded-full overflow-hidden">
+                                {users.avatarUrl ? (
+                                  <img
+                                    src={users.avatarUrl}
+                                    alt="avatar"
+                                    className="w-full h-full object-cover"
+                                  />
+                                ) : (
+                                  <div className="bg-gray-200 w-full h-full flex items-center justify-center">
+                                    {users.name
+                                      .split(" ")
+                                      .map((n) => n[0])
+                                      .join("")}
+                                  </div>
+                                )}
+                              </div>
+                              <div>
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  onChange={(e) => setAvatarFile(e.target.files[0])}
+                                />
+                                <Button
+                                  size="sm"
+                                  className="mt-2"
+                                  onClick={async () => {
+                                    if (!avatarFile) return toast.error("Select an image first");
+                                    try {
+                                      const form = new FormData();
+                                      form.append("avatar", avatarFile);
+                                      const res = await axiosInstance.post(
+                                        `/user/upload-avatar/${user._id}`,
+                                        form,
+                                        { headers: { "Content-Type": "multipart/form-data" } }
+                                      );
+                                      if (res.data.data) {
+                                        setusers(res.data.data);
+                                        updateUser({ avatarUrl: res.data.data.avatarUrl });
+                                        toast.success("Avatar uploaded");
+                                      }
+                                    } catch (error) {
+                                      console.log(error);
+                                      toast.error("Avatar upload failed");
+                                    }
+                                  }}
+                                >
+                                  Upload
+                                </Button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div>
                             <Label htmlFor="name">Display Name</Label>

@@ -92,9 +92,19 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("user");
     toast.info("Logged out");
   };
+  const updateUser = (newData) => {
+    const merged = { ...(user || {}), ...newData };
+    setUser(merged);
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("user");
+      const base = stored ? JSON.parse(stored) : {};
+      const combined = { ...base, ...merged };
+      localStorage.setItem("user", JSON.stringify(combined));
+    }
+  };
   return (
     <AuthContext.Provider
-      value={{ user, Signup, Login, VerifyOTP, Logout, loading, error }}
+      value={{ user, Signup, Login, VerifyOTP, Logout, updateUser, loading, error }}
     >
       {children}
     </AuthContext.Provider>

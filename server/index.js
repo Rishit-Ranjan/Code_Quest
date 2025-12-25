@@ -5,11 +5,18 @@ import mongoose from "mongoose";
 import userroutes from "./routes/auth.js"
 import questionroute from "./routes/question.js"
 import answerroutes from "./routes/answer.js"
+import fs from "fs";
 const app = express();
 dotenv.config();
 app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
+// ensure uploads dir exists and serve it
+const uploadsDir = "uploads";
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir);
+}
+app.use('/uploads', express.static(uploadsDir));
 app.get("/", (req, res) => {
   res.send("Stackoverflow clone is running perfect");
 });
