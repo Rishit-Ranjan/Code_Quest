@@ -27,7 +27,8 @@
         "signupSuccessful": "Signup Successful",
         "loginFailed": "Login failed",
         "enterOTP": "Enter OTP",
-        "otpSentEmail": "Enter OTP sent to your email"
+        "otpSentEmail": "Enter OTP sent to your email",
+        "resendOTP": "Resend OTP"
     },
     "home": {
         "title": "Stack Overflow",
