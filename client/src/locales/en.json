@@ -48,8 +48,8 @@
     "language": {
         "selectLanguage": "Select Language",
         "switchLanguage": "Switch Language",
-        "verifyOTP": "Verify OTP to switch language",
-        "otpSent": "OTP sent",
+        "verifyOTP": "Verify OTP sent to email",
+        "otpSent": "OTP sent to email",
         "languageUpdated": "Language updated successfully",
         "addPhoneFirst": "Please add and verify your phone number first",
         "phoneNumber": "Phone Number",
