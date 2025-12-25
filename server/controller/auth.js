@@ -430,3 +430,41 @@ export const verifyPhoneNumber = async (req, res) => {
     res.status(500).json({ message: "Something went wrong" });
   }
 };
+
+export const getNotifications = async (req, res) => {
+  try {
+    const existingUser = await user.findById(req.userId);
+    if (!existingUser) return res.status(404).json({ message: "User not found" });
+    res.status(200).json({ data: existingUser.notifications || [] });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+};
+
+export const markNotificationRead = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const existingUser = await user.findById(req.userId);
+    if (!existingUser) return res.status(404).json({ message: "User not found" });
+    const notif = existingUser.notifications.id(id);
+    if (!notif) return res.status(404).json({ message: "Notification not found" });
+    notif.read = true;
+    await existingUser.save();
+    res.status(200).json({ data: notif });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+};
+
+export const setNotificationsEnabled = async (req, res) => {
+  const { enabled } = req.body;
+  try {
+    const updated = await user.findByIdAndUpdate(req.userId, { $set: { notificationsEnabled: !!enabled } }, { new: true });
+    res.status(200).json({ data: updated.notificationsEnabled });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+};

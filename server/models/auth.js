@@ -6,6 +6,16 @@ const userschema = mongoose.Schema({
   password: { type: String, required: true },
   avatarUrl: { type: String },
   about: { type: String },
+  notificationsEnabled: { type: Boolean, default: true },
+  notifications: [
+    {
+      type: { type: String },
+      message: { type: String },
+      link: { type: String },
+      read: { type: Boolean, default: false },
+      createdAt: { type: Date, default: Date.now },
+    },
+  ],
   tags: { type: [String] },
   joinDate: { type: Date, default: Date.now },
   lastPasswordResetRequest: { type: Date },

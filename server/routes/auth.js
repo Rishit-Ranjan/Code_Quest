@@ -12,6 +12,9 @@ import {
   updatePhoneNumber,
   verifyPhoneNumber,
   uploadAvatar,
+  getNotifications,
+  markNotificationRead,
+  setNotificationsEnabled,
 } from "../controller/auth.js";
 
 const router = express.Router();
@@ -42,4 +45,8 @@ router.get("/getalluser", getallusers);
 router.patch("/update/:id", auth, updateprofile);
 // Avatar upload
 router.post("/upload-avatar/:id", auth, upload.single("avatar"), uploadAvatar);
+// Notifications
+router.get("/notifications", auth, getNotifications);
+router.patch("/notifications/mark-read/:id", auth, markNotificationRead);
+router.post("/notifications/enabled", auth, setNotificationsEnabled);
 export default router;

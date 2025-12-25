@@ -74,6 +74,26 @@ export const votequestion = async (req, res) => {
       }
     }
     const questionvote = await question.findByIdAndUpdate(_id, questionDoc, { new: true });
+    // notify owner on upvote
+    try {
+      if (value === "upvote") {
+        const q = await question.findById(_id);
+        if (q && q.userid && String(q.userid) !== String(userid)) {
+          const userModel = (await import("../models/auth.js")).default;
+          await userModel.findByIdAndUpdate(q.userid, {
+            $push: {
+              notifications: {
+                type: "upvote",
+                message: `Someone upvoted your question: ${q.questiontitle}`,
+                link: `/questions/${q._id}`,
+              },
+            },
+          });
+        }
+      }
+    } catch (err) {
+      console.log("notify error", err);
+    }
     res.status(200).json({ data: questionvote });
   } catch (error) {
     res.status(500).json("something went wrong..");

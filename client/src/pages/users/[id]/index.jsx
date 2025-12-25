@@ -44,6 +44,7 @@ const index = () => {
   const { id } = useParams();
   const [users, setusers] = useState(null);
   const [loading, setloading] = useState(true);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editForm, setEditForm] = useState({
     name: users?.name || "",
@@ -60,6 +61,7 @@ const index = () => {
         const res = await axiosInstance.get("/user/getalluser");
         const matcheduser = res.data.data.find((u) => u._id === id);
         setusers(matcheduser);
+        setNotificationsEnabled(!!matcheduser?.notificationsEnabled);
       } catch (error) {
         console.log(error);
       } finally {
@@ -334,6 +336,37 @@ const index = () => {
                 Member since{" "}
                 {new Date(users.joinDate).toISOString().split("T")[0]}
               </div>
+              {isOwnProfile && (
+                <div className="flex items-center ml-4">
+                  <label className="flex items-center gap-2 text-sm">
+                    <input
+                      type="checkbox"
+                      checked={notificationsEnabled}
+                      onChange={async (e) => {
+                        const enabled = e.target.checked;
+                        if (enabled && typeof Notification !== "undefined" && Notification.permission === "default") {
+                          try {
+                            await Notification.requestPermission();
+                          } catch (err) {
+                            // ignore
+                          }
+                        }
+                        try {
+                          const res = await axiosInstance.post("/user/notifications/enabled", { enabled });
+                          setNotificationsEnabled(res.data.data);
+                          // update stored user preference
+                          updateUser({ notificationsEnabled: res.data.data });
+                          toast.success(`Notifications ${res.data.data ? 'enabled' : 'disabled'}`);
+                        } catch (err) {
+                          console.log(err);
+                          toast.error("Failed to update notification preference");
+                        }
+                      }}
+                    />
+                    Enable browser notifications
+                  </label>
+                </div>
+              )}
             </div>
             <div className="flex flex-wrap items-center space-x-6 text-sm">
               <div className="flex items-center">
