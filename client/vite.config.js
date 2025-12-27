@@ -11,6 +11,8 @@ export default defineConfig({
   },
 
   server: {
+    port: 5173,
+    strictPort: true,
     headers: {
       "Cross-Origin-Opener-Policy": "same-origin-allow-popups",
     },
@@ -18,6 +20,8 @@ export default defineConfig({
       '/user': 'http://127.0.0.1:5000',
       '/question': 'http://127.0.0.1:5000',
       '/answer': 'http://127.0.0.1:5000',
+      '/ai': 'http://127.0.0.1:5000',
+      '/article': 'http://127.0.0.1:5000',
       '/uploads': 'http://127.0.0.1:5000',
     },
   },

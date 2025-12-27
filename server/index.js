@@ -15,6 +15,12 @@ app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
+// Simple request logger
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
+  next();
+});
+
 // ensure uploads dir exists and serve it
 const uploadsDir = "uploads";
 if (!fs.existsSync(uploadsDir)) {

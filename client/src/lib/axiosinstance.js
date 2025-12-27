@@ -6,7 +6,9 @@ const axiosInstance = axios.create({
     "Content-Type": "application/json",
   },
 });
+
 axiosInstance.interceptors.request.use((req) => {
+  console.log(`[Request] ${req.method?.toUpperCase()} ${req.url}`);
   if (typeof window !== "undefined") {
     const user = localStorage.getItem("user");
     if (user) {
@@ -18,4 +20,5 @@ axiosInstance.interceptors.request.use((req) => {
   }
   return req;
 });
+
 export default axiosInstance;

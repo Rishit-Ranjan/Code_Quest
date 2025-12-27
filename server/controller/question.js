@@ -23,8 +23,8 @@ export const getallquestion = async (req, res) => {
     const allquestion = await question.find().sort({ askedon: -1 });
     res.status(200).json({ data: allquestion });
   } catch (error) {
-    console.log(error);
-    res.status(500).json("something went wrong..");
+    console.error("getallquestion Error:", error);
+    res.status(500).json({ message: error.message || "something went wrong.." });
     return;
   }
 };
@@ -38,7 +38,8 @@ export const deletequestion = async (req, res) => {
     await question.findByIdAndDelete(_id);
     res.status(200).json({ message: "question deleted" });
   } catch (error) {
-    res.status(500).json("something went wrong..");
+    console.error("deletequestion Error:", error);
+    res.status(500).json({ message: error.message || "something went wrong.." });
     return;
   }
 };
@@ -100,7 +101,8 @@ export const votequestion = async (req, res) => {
     }
     res.status(200).json({ data: questionvote });
   } catch (error) {
-    res.status(500).json("something went wrong..");
+    console.error("votequestion Error:", error);
+    res.status(500).json({ message: error.message || "something went wrong.." });
     return;
   }
 };
