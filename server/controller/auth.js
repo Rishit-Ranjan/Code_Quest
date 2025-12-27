@@ -368,24 +368,34 @@ export const requestLanguageSwitch = async (req, res) => {
 
     // Always send Email OTP for any language switch
     try {
+      console.log(`[Language Switch] Generating OTP ${otp} for user ${existingUser.email} to switch to ${targetLanguage}`);
+
       const mailOptions = {
         from: process.env.EMAIL_USER,
         to: existingUser.email,
         subject: "Language Switch Verification",
         text: `Your OTP to switch language to ${targetLanguage} is: ${otp}`,
       };
+
       await transporter.sendMail(mailOptions);
+
       return res.status(200).json({
         message: "OTP sent to your email",
         otpMethod: "email"
       });
     } catch (error) {
-      console.error("Email OTP Error:", error);
-      return res.status(500).json({ message: "Failed to send email OTP" });
+      console.error("Email OTP Error (Switching Language):", error.message);
+
+      // FALLBACK for testing: Return success message but mention checking terminal
+      return res.status(200).json({
+        message: "OTP generation successful. (Note: Email service unavailable, please check server terminal for the OTP code)",
+        otpMethod: "email",
+        devMode: true
+      });
     }
   } catch (error) {
     console.error("requestLanguageSwitch Error:", error);
-    res.status(500).json({ message: "Something went wrong" });
+    res.status(500).json({ message: "Internal server error while requesting language switch" });
   }
 };
 
