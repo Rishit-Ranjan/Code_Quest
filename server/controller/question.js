@@ -44,7 +44,7 @@ export const deletequestion = async (req, res) => {
 };
 export const votequestion = async (req, res) => {
   const { id: _id } = req.params;
-  const { value ,userid} = req.body;
+  const { value, userid } = req.body;
   if (!mongoose.Types.ObjectId.isValid(_id)) {
     return res.status(400).json({ message: "question unavailable" });
   }
@@ -104,3 +104,42 @@ export const votequestion = async (req, res) => {
     return;
   }
 };
+
+export const saveQuestion = async (req, res) => {
+  const { id: _id } = req.params;
+  const userid = req.userId;
+
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    return res.status(400).json({ message: "question unavailable" });
+  }
+
+  try {
+    const userModel = (await import("../models/auth.js")).default;
+    const user = await userModel.findById(userid);
+    const index = user.saves.indexOf(_id);
+
+    if (index === -1) {
+      user.saves.push(_id);
+      await user.save();
+      res.status(200).json({ message: "Question saved successfully" });
+    } else {
+      user.saves.splice(index, 1);
+      await user.save();
+      res.status(200).json({ message: "Question removed from saves" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong" });
+  }
+};
+
+export const getSavedQuestions = async (req, res) => {
+  const userid = req.userId;
+  try {
+    const userModel = (await import("../models/auth.js")).default;
+    const user = await userModel.findById(userid).populate('saves');
+    res.status(200).json({ data: user.saves });
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong" });
+  }
+};
+

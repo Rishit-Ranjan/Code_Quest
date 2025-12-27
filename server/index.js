@@ -6,6 +6,7 @@ import userroutes from "./routes/auth.js"
 import questionroute from "./routes/question.js"
 import answerroutes from "./routes/answer.js"
 import airoutes from "./routes/ai.js"
+import articleroutes from "./routes/article.js"
 import fs from "fs";
 
 const app = express();
@@ -27,6 +28,7 @@ app.use('/user', userroutes)
 app.use('/question', questionroute)
 app.use('/answer', answerroutes)
 app.use('/ai', airoutes)
+app.use('/article', articleroutes)
 const PORT = process.env.PORT;
 const databaseurl = process.env.MONGODB_URL;
 

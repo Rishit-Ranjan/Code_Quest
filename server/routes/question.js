@@ -4,6 +4,8 @@ import {
   deletequestion,
   getallquestion,
   votequestion,
+  saveQuestion,
+  getSavedQuestions,
 } from "../controller/question.js";
 
 const router = express.Router();
@@ -12,5 +14,7 @@ router.post("/ask", auth, Askquestion);
 router.get("/getallquestion", getallquestion);
 router.delete("/delete/:id", auth, deletequestion);
 router.patch("/vote/:id", auth, votequestion);
+router.post("/save/:id", auth, saveQuestion);
+router.get("/saved", auth, getSavedQuestions);
 
 export default router;

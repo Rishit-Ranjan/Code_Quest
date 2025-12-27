@@ -15,6 +15,11 @@ import LoginHistory from "@/pages/LoginHistory/LoginHistory";
 import Users from "@/pages/users/index";
 import Tags from "@/pages/tags/index";
 import AIAssist from "@/pages/ai-assist/index";
+import Saves from "@/pages/saves/index";
+import Challenges from "@/pages/challenges/index";
+import Chat from "@/pages/chat/index";
+import Articles from "@/pages/articles/index";
+import Companies from "@/pages/companies/index";
 
 function App() {
     return (
@@ -34,11 +39,11 @@ function App() {
                     <Route path="/tags" element={<Tags />} />
                     <Route path="/login-history" element={<LoginHistory />} />
                     <Route path="/ai-assist" element={<AIAssist />} />
-                    <Route path="/saves" element={<Home />} />
-                    <Route path="/challenges" element={<Home />} />
-                    <Route path="/chat" element={<Home />} />
-                    <Route path="/articles" element={<Home />} />
-                    <Route path="/companies" element={<Home />} />
+                    <Route path="/saves" element={<Saves />} />
+                    <Route path="/challenges" element={<Challenges />} />
+                    <Route path="/chat" element={<Chat />} />
+                    <Route path="/articles" element={<Articles />} />
+                    <Route path="/companies" element={<Companies />} />
                 </Routes>
             </AuthProvider>
         </BrowserRouter>

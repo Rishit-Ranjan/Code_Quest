@@ -26,5 +26,6 @@ const userschema = mongoose.Schema({
   languagePreference: { type: String, default: 'en' },
   languageSwitchOtp: { type: String },
   languageSwitchOtpExpires: { type: Date },
+  saves: [{ type: mongoose.Schema.Types.ObjectId, ref: 'question' }],
 });
 export default mongoose.model("user", userschema);
