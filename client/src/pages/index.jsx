@@ -128,14 +128,9 @@ export default function Home() {
   if (loading) {
     return (
       <Mainlayout>
-        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500"></div>
-      </Mainlayout>
-    );
-  }
-  if (!filteredQuestion || filteredQuestion.length === 0) {
-    return (
-      <Mainlayout>
-        <div className="text-center text-gray-500 mt-4">No question found.</div>
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500"></div>
+        </div>
       </Mainlayout>
     );
   }
@@ -153,143 +148,148 @@ export default function Home() {
           </button>
         </div>
         <div className="w-full">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center mb-4 gap-2 sm:gap-4">
-            <span className="text-gray-600">{filteredQuestion.length} questions</span>
-            <div className="flex flex-wrap gap-1 sm:gap-2">
-              <button
-                onClick={() => setSortBy("newest")}
-                className={`px-2 sm:px-3 py-1 rounded text-xs sm:text-sm ${
-                  sortBy === "newest"
-                    ? "bg-gray-200 text-gray-700"
-                    : "text-gray-600 hover:bg-gray-100"
-                }`}
-              >
-                Newest
-              </button>
-              <button
-                onClick={() => setSortBy("active")}
-                className={`px-2 sm:px-3 py-1 rounded text-xs sm:text-sm ${
-                  sortBy === "active"
-                    ? "bg-gray-200 text-gray-700"
-                    : "text-gray-600 hover:bg-gray-100"
-                }`}
-              >
-                Active
-              </button>
-              <button
-                onClick={() => setFilterBy(filterBy === "bountied" ? "all" : "bountied")}
-                className={`px-2 sm:px-3 py-1 flex items-center text-xs sm:text-sm rounded ${
-                  filterBy === "bountied"
-                    ? "bg-gray-200 text-gray-700"
-                    : "text-gray-600 hover:bg-gray-100"
-                }`}
-              >
-                Bountied
-                <Badge variant="secondary" className="ml-1 text-xs">
-                  {question ? question.filter((q) => q.upvote && q.upvote.length > 0).length : 0}
-                </Badge>
-              </button>
-              <button
-                onClick={() => setFilterBy(filterBy === "unanswered" ? "all" : "unanswered")}
-                className={`px-2 sm:px-3 py-1 rounded text-xs sm:text-sm ${
-                  filterBy === "unanswered"
-                    ? "bg-gray-200 text-gray-700"
-                    : "text-gray-600 hover:bg-gray-100"
-                }`}
-              >
-                Unanswered
-              </button>
-              <button className="px-2 sm:px-3 py-1 text-gray-600 hover:bg-gray-100 rounded text-xs sm:text-sm">
-                More ▼
-              </button>
+          {!filteredQuestion || filteredQuestion.length === 0 ? (
+            <div className="text-center text-gray-500 py-20 bg-gray-50 rounded-lg border-2 border-dashed">
+              <p className="text-lg font-medium mb-2">No questions found.</p>
+              <p className="text-sm">Be the first to ask a question on the platform!</p>
             </div>
-          </div>
-          
-          <div className="mb-4">
-            <input
-              type="text"
-              placeholder="Search questions..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-
-          <div className="space-y-4">
-            {filteredQuestion.map((question) => (
-              <div key={question._id} className="border-b border-gray-200 pb-4">
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <div className="flex sm:flex-col items-center sm:items-center text-sm text-gray-600 sm:w-16 lg:w-20 gap-4 sm:gap-2">
-                    <div className="text-center">
-                      <div className="font-medium">
-                        {question.upvote.length}
-                      </div>
-                      <div className="text-xs">votes</div>
-                    </div>
-                    <div className="text-center">
-                      <div
-                        className={`font-medium ${question.answer.length > 0
-                          ? "text-green-600 bg-green-100 px-2 py-1 rounded"
-                          : ""
-                          }`}
-                      >
-                        {question.noofanswer}
-                      </div>
-                      <div className="text-xs">
-                        {question.noofanswer === 1
-                          ? "answer"
-                          : "answers"}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <Link
-                      to={`/questions/${question._id}`}
-                      className="text-blue-600 hover:text-blue-800 text-base lg:text-lg font-medium mb-2 block"
-                    >
-                      {question.questiontitle}
-                    </Link>
-                    <p className="text-gray-700 text-sm mb-3 line-clamp-2">
-                      {question.questionbody}
-                    </p>
-
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-                      <div className="flex flex-wrap gap-1">
-                        {question.questiontags.map((tag) => (
-                          <div key={tag}>
-                            <Badge
-                              variant="secondary"
-                              className="text-xs bg-blue-100 text-blue-800 hover:bg-blue-200 cursor-pointer"
-                            >
-                              {tag}
-                            </Badge>
-                          </div>
-                        ))}
-                      </div>
-
-                      <div className="flex items-center text-xs text-gray-600 flex-shrink-0">
-                        <Link
-                          to={`/users/${question.userid}`}
-                          className="flex items-center"
-                        >
-                          <Avatar className="w-4 h-4 mr-1">
-                            <AvatarFallback className="text-xs">
-                              {question.userposted[0]}
-                            </AvatarFallback>
-                          </Avatar>
-                          <span className="text-blue-600 hover:text-blue-800 mr-1">
-                            {question.userposted}
-                          </span>
-                        </Link>
-
-                        <span>asked {new Date(question.askedon).toLocaleDateString()}</span>
-                      </div>
-                    </div>
-                  </div>
+          ) : (
+            <>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center mb-4 gap-2 sm:gap-4">
+                <span className="text-gray-600">{filteredQuestion.length} questions</span>
+                <div className="flex flex-wrap gap-1 sm:gap-2">
+                  <button
+                    onClick={() => setSortBy("newest")}
+                    className={`px-2 sm:px-3 py-1 rounded text-xs sm:text-sm ${sortBy === "newest"
+                      ? "bg-gray-200 text-gray-700"
+                      : "text-gray-600 hover:bg-gray-100"
+                      }`}
+                  >
+                    Newest
+                  </button>
+                  <button
+                    onClick={() => setSortBy("active")}
+                    className={`px-2 sm:px-3 py-1 rounded text-xs sm:text-sm ${sortBy === "active"
+                      ? "bg-gray-200 text-gray-700"
+                      : "text-gray-600 hover:bg-gray-100"
+                      }`}
+                  >
+                    Active
+                  </button>
+                  <button
+                    onClick={() => setFilterBy(filterBy === "bountied" ? "all" : "bountied")}
+                    className={`px-2 sm:px-3 py-1 flex items-center text-xs sm:text-sm rounded ${filterBy === "bountied"
+                      ? "bg-gray-200 text-gray-700"
+                      : "text-gray-600 hover:bg-gray-100"
+                      }`}
+                  >
+                    Bountied
+                    <Badge variant="secondary" className="ml-1 text-xs">
+                      {question ? question.filter((q) => q.upvote && q.upvote.length > 0).length : 0}
+                    </Badge>
+                  </button>
+                  <button
+                    onClick={() => setFilterBy(filterBy === "unanswered" ? "all" : "unanswered")}
+                    className={`px-2 sm:px-3 py-1 rounded text-xs sm:text-sm ${filterBy === "unanswered"
+                      ? "bg-gray-200 text-gray-700"
+                      : "text-gray-600 hover:bg-gray-100"
+                      }`}
+                  >
+                    Unanswered
+                  </button>
+                  <button className="px-2 sm:px-3 py-1 text-gray-600 hover:bg-gray-100 rounded text-xs sm:text-sm">
+                    More ▼
+                  </button>
                 </div>
               </div>
-            ))}
-          </div>
+
+              <div className="mb-4">
+                <input
+                  type="text"
+                  placeholder="Search questions..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
+              </div>
+
+              <div className="space-y-4">
+                {filteredQuestion.map((question) => (
+                  <div key={question._id} className="border-b border-gray-200 pb-4">
+                    <div className="flex flex-col sm:flex-row gap-4">
+                      <div className="flex sm:flex-col items-center sm:items-center text-sm text-gray-600 sm:w-16 lg:w-20 gap-4 sm:gap-2">
+                        <div className="text-center">
+                          <div className="font-medium">
+                            {question.upvote.length}
+                          </div>
+                          <div className="text-xs">votes</div>
+                        </div>
+                        <div className="text-center">
+                          <div
+                            className={`font-medium ${question.answer.length > 0
+                              ? "text-green-600 bg-green-100 px-2 py-1 rounded"
+                              : ""
+                              }`}
+                          >
+                            {question.noofanswer}
+                          </div>
+                          <div className="text-xs">
+                            {question.noofanswer === 1
+                              ? "answer"
+                              : "answers"}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <Link
+                          to={`/questions/${question._id}`}
+                          className="text-blue-600 hover:text-blue-800 text-base lg:text-lg font-medium mb-2 block"
+                        >
+                          {question.questiontitle}
+                        </Link>
+                        <p className="text-gray-700 text-sm mb-3 line-clamp-2">
+                          {question.questionbody}
+                        </p>
+
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                          <div className="flex flex-wrap gap-1">
+                            {question.questiontags.map((tag) => (
+                              <div key={tag}>
+                                <Badge
+                                  variant="secondary"
+                                  className="text-xs bg-blue-100 text-blue-800 hover:bg-blue-200 cursor-pointer"
+                                >
+                                  {tag}
+                                </Badge>
+                              </div>
+                            ))}
+                          </div>
+
+                          <div className="flex items-center text-xs text-gray-600 flex-shrink-0">
+                            <Link
+                              to={`/users/${question.userid}`}
+                              className="flex items-center"
+                            >
+                              <Avatar className="w-4 h-4 mr-1">
+                                <AvatarFallback className="text-xs">
+                                  {question.userposted[0]}
+                                </AvatarFallback>
+                              </Avatar>
+                              <span className="text-blue-600 hover:text-blue-800 mr-1">
+                                {question.userposted}
+                              </span>
+                            </Link>
+
+                            <span>asked {new Date(question.askedon).toLocaleDateString()}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </main>
     </Mainlayout>
