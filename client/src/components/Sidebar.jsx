@@ -11,125 +11,73 @@ import {
   Trophy,
   Users,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import React from "react";
 import { Badge } from "./ui/badge";
 
 const Sidebar = ({ isopen }) => {
-  return (
-    <div>
-      <aside
-        className={cn(
-          " top-[53px]  w-48 lg:w-64 min-h-screen bg-white shadow-sm border-r transition-transform duration-200 ease-in-out md:translate-x-0",
-          isopen ? "translate-x-0" : "-translate-x-full"
-        )}
-      >
-        <nav className="p-2 lg:p-4">
-          <ul className="space-y-1">
-            <li>
-              <Link
-                to="/"
-                className="flex items-center px-2 py-2 text-gray-700 hover:bg-gray-100 rounded text-sm"
-              >
-                <Home className="w-4 h-4 mr-2 lg:mr-3" />
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/questions"
-                className="flex items-center px-2 py-2 text-gray-700 hover:bg-gray-100 rounded text-sm"
-              >
-                <MessageSquareIcon className="w-4 h-4 mr-2 lg:mr-3" />
-                Questions
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="#"
-                className="flex items-center px-2 py-2 text-gray-700 hover:bg-gray-100 rounded text-sm"
-              >
-                <Bot className="w-4 h-4 mr-2 lg:mr-3" />
-                AI Assist
-                <Badge variant="secondary" className="ml-auto text-xs">
-                  Labs
-                </Badge>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/tags"
-                className="flex items-center px-2 py-2 text-gray-700 hover:bg-gray-100 rounded text-sm"
-              >
-                <Tag className="w-4 h-4 mr-2 lg:mr-3" />
-                Tags
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/users"
-                className="flex items-center px-2 py-2 text-gray-700 hover:bg-gray-100 rounded text-sm"
-              >
-                <Users className="w-4 h-4 mr-2 lg:mr-3" />
-                Users
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="#"
-                className="flex items-center px-2 py-2 text-gray-700 hover:bg-gray-100 rounded text-sm"
-              >
-                <Bookmark className="w-4 h-4 mr-2 lg:mr-3" />
-                Saves
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="#"
-                className="flex items-center px-2 py-2 text-gray-700 hover:bg-gray-100 rounded text-sm"
-              >
-                <Trophy className="w-4 h-4 mr-2 lg:mr-3" />
-                Challenges
-                <Badge
-                  variant="secondary"
-                  className="ml-auto text-xs bg-orange-100 text-orange-800"
-                >
-                  NEW
-                </Badge>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="#"
-                className="flex items-center px-2 py-2 text-gray-700 hover:bg-gray-100 rounded text-sm"
-              >
-                <MessageSquare className="w-4 h-4 mr-2 lg:mr-3" />
-                Chat
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="#"
-                className="flex items-center px-2 py-2 text-gray-700 hover:bg-gray-100 rounded text-sm"
-              >
-                <FileText className="w-4 h-4 mr-2 lg:mr-3" />
-                Articles
-              </Link>
-            </li>
+  const navItems = [
+    { to: "/", icon: Home, label: "Home" },
+    { to: "/questions", icon: MessageSquareIcon, label: "Questions" },
+    { to: "/ai-assist", icon: Bot, label: "AI Assist", badge: "Labs" },
+    { to: "/tags", icon: Tag, label: "Tags" },
+    { to: "/users", icon: Users, label: "Users" },
+    { to: "/saves", icon: Bookmark, label: "Saves" },
+    {
+      to: "/challenges",
+      icon: Trophy,
+      label: "Challenges",
+      badge: "NEW",
+      badgeVariant: "orange"
+    },
+    { to: "/chat", icon: MessageSquare, label: "Chat" },
+    { to: "/articles", icon: FileText, label: "Articles" },
+    { to: "/companies", icon: Building, label: "Companies" },
+  ];
 
-            <li>
-              <Link
-                to="#"
-                className="flex items-center px-2 py-2 text-gray-700 hover:bg-gray-100 rounded text-sm"
+  return (
+    <aside
+      className={cn(
+        "fixed md:sticky top-[53px] left-0 w-64 h-[calc(100vh-53px)] bg-white border-r transition-transform duration-200 ease-in-out z-40 overflow-y-auto",
+        isopen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+      )}
+    >
+      <nav className="py-6 px-1 lg:px-2">
+        <ul className="space-y-0.5">
+          {navItems.map((item) => (
+            <li key={item.label}>
+              <NavLink
+                to={item.to}
+                className={({ isActive }) =>
+                  cn(
+                    "flex items-center px-4 py-2.5 rounded-r-none transition-colors text-sm font-medium",
+                    isActive
+                      ? "bg-gray-100 text-gray-900 border-r-4 border-orange-500 font-semibold"
+                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                  )
+                }
               >
-                <Building className="w-4 h-4 mr-2 lg:mr-3" />
-                Companies
-              </Link>
+                <item.icon className={cn("w-[18px] h-[18px] mr-3 font-bold")} />
+                <span className="flex-1">{item.label}</span>
+                {item.badge && (
+                  <Badge
+                    variant="secondary"
+                    className={cn(
+                      "ml-auto text-[10px] px-1.5 py-0 h-5 leading-tight font-normal",
+                      item.badgeVariant === "orange"
+                        ? "bg-orange-100 text-orange-700 hover:bg-orange-100"
+                        : "bg-gray-100 text-gray-600 hover:bg-gray-100"
+                    )}
+                  >
+                    {item.badge}
+                  </Badge>
+                )}
+              </NavLink>
             </li>
-          </ul>
-        </nav>
-      </aside>
-    </div>
+          ))}
+        </ul>
+      </nav>
+    </aside>
   );
 };
 

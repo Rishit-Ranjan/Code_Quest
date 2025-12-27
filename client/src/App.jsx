@@ -32,6 +32,12 @@ function App() {
                     <Route path="/questions/:id" element={<QuestionDetails />} />
                     <Route path="/tags" element={<Tags />} />
                     <Route path="/login-history" element={<LoginHistory />} />
+                    <Route path="/ai-assist" element={<Home />} />
+                    <Route path="/saves" element={<Home />} />
+                    <Route path="/challenges" element={<Home />} />
+                    <Route path="/chat" element={<Home />} />
+                    <Route path="/articles" element={<Home />} />
+                    <Route path="/companies" element={<Home />} />
                 </Routes>
             </AuthProvider>
         </BrowserRouter>
