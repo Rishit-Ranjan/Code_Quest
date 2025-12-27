@@ -19,6 +19,8 @@ import { Calendar, Edit, Plus, X } from "lucide-react";
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import LoginHistoryCard from "@/components/LoginHistoryCard";
+
 const getUserData = (id) => {
   const users = {
     "1": {
@@ -386,51 +388,56 @@ const index = () => {
               </div>
             </div>
           </div>
-        </div>
-        <div className="grid grid-cols-1  gap-6">
-          <div className="lg:col-span-2 space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>About</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="prose max-w-none">
-                  <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-                    {users.about}
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-          <div className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Top Tags</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {users.tags.map((tag) => (
-                    <div
-                      key={tag}
-                      className="flex items-center justify-between"
-                    >
-                      <div>
-                        <Badge
-                          variant="secondary"
-                          className="bg-blue-100 text-blue-800 hover:bg-blue-200 cursor-pointer"
-                        >
-                          {tag}
-                        </Badge>
+          <div className="grid grid-cols-1 gap-6">
+            <div className="lg:col-span-2 space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>About</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="prose max-w-none">
+                    <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+                      {users.about}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Login History */}
+              {isOwnProfile && (
+                <LoginHistoryCard />
+              )}
+            </div>
+            <div className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Top Tags</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {users.tags.map((tag) => (
+                      <div
+                        key={tag}
+                        className="flex items-center justify-between"
+                      >
+                        <div>
+                          <Badge
+                            variant="secondary"
+                            className="bg-blue-100 text-blue-800 hover:bg-blue-200 cursor-pointer"
+                          >
+                            {tag}
+                          </Badge>
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </div>
-    </Mainlayout>
+    </Mainlayout >
   );
 };
 
