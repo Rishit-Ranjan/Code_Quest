@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import userroutes from "./routes/auth.js"
 import questionroute from "./routes/question.js"
 import answerroutes from "./routes/answer.js"
+import airoutes from "./routes/ai.js"
 import fs from "fs";
 
 const app = express();
@@ -22,9 +23,10 @@ app.use('/uploads', express.static(uploadsDir));
 app.get("/", (req, res) => {
   res.send("Stackoverflow clone is running perfect");
 });
-app.use('/user',userroutes)
-app.use('/question',questionroute)
-app.use('/answer',answerroutes)
+app.use('/user', userroutes)
+app.use('/question', questionroute)
+app.use('/answer', answerroutes)
+app.use('/ai', airoutes)
 const PORT = process.env.PORT;
 const databaseurl = process.env.MONGODB_URL;
 

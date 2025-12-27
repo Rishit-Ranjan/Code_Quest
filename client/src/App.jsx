@@ -14,6 +14,7 @@ import QuestionDetails from "@/pages/questions/[id]/index";
 import LoginHistory from "@/pages/LoginHistory/LoginHistory";
 import Users from "@/pages/users/index";
 import Tags from "@/pages/tags/index";
+import AIAssist from "@/pages/ai-assist/index";
 
 function App() {
     return (
@@ -32,7 +33,7 @@ function App() {
                     <Route path="/questions/:id" element={<QuestionDetails />} />
                     <Route path="/tags" element={<Tags />} />
                     <Route path="/login-history" element={<LoginHistory />} />
-                    <Route path="/ai-assist" element={<Home />} />
+                    <Route path="/ai-assist" element={<AIAssist />} />
                     <Route path="/saves" element={<Home />} />
                     <Route path="/challenges" element={<Home />} />
                     <Route path="/chat" element={<Home />} />
