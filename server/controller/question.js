@@ -9,8 +9,8 @@ export const Askquestion = async (req, res) => {
     await postques.save();
     res.status(200).json({ data: postques });
   } catch (error) {
-    console.log(error);
-    res.status(500).json("something went wrong..");
+    console.error("Askquestion Error:", error);
+    res.status(500).json({ message: error.message || "something went wrong.." });
     return;
   }
 };

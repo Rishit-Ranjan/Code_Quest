@@ -484,8 +484,8 @@ export const getNotifications = async (req, res) => {
     if (!existingUser) return res.status(404).json({ message: "User not found" });
     res.status(200).json({ data: existingUser.notifications || [] });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Something went wrong" });
+    console.error("getNotifications Error:", error);
+    res.status(500).json({ message: error.message || "Something went wrong" });
   }
 };
 
