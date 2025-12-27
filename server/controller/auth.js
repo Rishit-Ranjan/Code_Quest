@@ -352,7 +352,7 @@ export const forgotPassword = async (req, res) => {
 
 export const requestLanguageSwitch = async (req, res) => {
   const { targetLanguage } = req.body;
-  const userId = req.userId; // From auth middleware
+  const userId = req.userId;
 
   try {
     const existingUser = await user.findById(userId);
@@ -363,15 +363,16 @@ export const requestLanguageSwitch = async (req, res) => {
     // Generate OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     existingUser.languageSwitchOtp = otp;
-    existingUser.languageSwitchOtpExpires = Date.now() + 10 * 60 * 1000; // 10 mins
+    existingUser.languageSwitchOtpExpires = Date.now() + 10 * 60 * 1000;
     await existingUser.save();
 
+    // Always send Email OTP for any language switch
     try {
       const mailOptions = {
         from: process.env.EMAIL_USER,
         to: existingUser.email,
         subject: "Language Switch Verification",
-        text: `Your OTP to switch language is: ${otp}`,
+        text: `Your OTP to switch language to ${targetLanguage} is: ${otp}`,
       };
       await transporter.sendMail(mailOptions);
       return res.status(200).json({
@@ -379,11 +380,11 @@ export const requestLanguageSwitch = async (req, res) => {
         otpMethod: "email"
       });
     } catch (error) {
-      console.log(error);
+      console.error("Email OTP Error:", error);
       return res.status(500).json({ message: "Failed to send email OTP" });
     }
   } catch (error) {
-    console.log(error);
+    console.error("requestLanguageSwitch Error:", error);
     res.status(500).json({ message: "Something went wrong" });
   }
 };

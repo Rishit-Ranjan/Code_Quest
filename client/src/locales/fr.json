@@ -5,7 +5,7 @@
         "logout": "Déconnexion",
         "email": "E-mail",
         "password": "Mot de passe",
-        "submit": "Soumettre",
+        "submit": "Envoyer",
         "cancel": "Annuler",
         "save": "Enregistrer",
         "delete": "Supprimer",
@@ -15,44 +15,40 @@
         "error": "Erreur",
         "success": "Succès"
     },
+    "nav": {
+        "home": "Accueil",
+        "questions": "Questions",
+        "tags": "Étiquettes",
+        "users": "Utilisateurs",
+        "companies": "Entreprises",
+        "saves": "Sauvegardes",
+        "challenges": "Défis",
+        "ai_assist": "Assistant IA",
+        "chat": "Chat",
+        "articles": "Articles",
+        "about": "À propos",
+        "products": "Produits",
+        "for_teams": "Pour Équipes"
+    },
     "auth": {
         "loginTitle": "Connectez-vous à votre compte",
-        "loginDescription": "Entrez votre e-mail et mot de passe pour accéder à Stack Overflow",
+        "loginDescription": "Entrez votre e-mail et votre mot de passe pour accéder à Stack Overflow",
         "signupTitle": "Créez votre compte",
-        "forgotPassword": "Mot de passe oublié?",
-        "noAccount": "Vous n'avez pas de compte?",
-        "haveAccount": "Vous avez déjà un compte?",
-        "allFieldsRequired": "TOUS les champs sont obligatoires",
+        "forgotPassword": "Mot de passe oublié ?",
+        "noAccount": "Vous n'avez pas de compte ?",
+        "haveAccount": "Vous avez déjà un compte ?",
+        "allFieldsRequired": "Tous les champs sont requis",
         "loginSuccessful": "Connexion réussie",
         "signupSuccessful": "Inscription réussie",
         "loginFailed": "Échec de la connexion",
-        "enterOTP": "Entrez OTP",
-        "otpSentEmail": "Entrez l'OTP envoyé à votre e-mail"
+        "enterOTP": "Entrez le code OTP",
+        "otpSentEmail": "Entrez le code OTP envoyé à votre e-mail",
+        "resendOTP": "Renvoyer l'OTP"
     },
     "home": {
         "title": "Stack Overflow",
-        "topQuestions": "Meilleures questions",
+        "topQuestions": "Meilleures Questions",
         "askQuestion": "Poser une question",
-        "allQuestions": "Toutes les questions"
-    },
-    "questions": {
-        "askQuestion": "Poser une question",
-        "title": "Titre",
-        "body": "Corps",
-        "tags": "Étiquettes",
-        "post": "Publier votre question",
-        "answers": "Réponses",
-        "views": "vues",
-        "votes": "votes"
-    },
-    "language": {
-        "selectLanguage": "Sélectionner la langue",
-        "switchLanguage": "Changer de langue",
-        "verifyOTP": "Vérifier OTP pour changer de langue",
-        "otpSent": "OTP envoyé",
-        "languageUpdated": "Langue mise à jour avec succès",
-        "addPhoneFirst": "Veuillez d'abord ajouter et vérifier votre numéro de téléphone",
-        "phoneNumber": "Numéro de téléphone",
-        "verifyPhone": "Vérifier le numéro de téléphone"
+        "allQuestions": "Toutes les Questions"
     }
 }

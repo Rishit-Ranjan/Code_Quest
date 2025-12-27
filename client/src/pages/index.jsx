@@ -4,6 +4,7 @@ import Mainlayout from "@/layout/Mainlayout";
 import axiosInstance from "@/lib/axiosinstance";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const questions = [
   {
@@ -56,7 +57,7 @@ const questions = [
     answers: 0,
     views: 6,
     title:
-      "call:fail action: private-web3-wallet-v2-o pen-wallet-connect, error: Pairing error: Subscribe error: Timed out waiting for 60000 ms /what it means",
+      "call:fail action: private-web3-wallet-v2-o pen-wallet-connect, error: Pairing error: Timed out waiting for 60000 ms /what it means",
     content:
       "Can't connect my web3 wallet with a dApp. A message pops: Accounts must be CAIP-10 compliant The error message reads: call:fail action: private-web3-wallet-v2-o pen-wallet-connect, error: Pairing ...",
     tags: ["web3", "wallet", "blockchain"],
@@ -67,6 +68,7 @@ const questions = [
   },
 ];
 export default function Home() {
+  const { t } = useTranslation();
   const [question, setquestion] = useState(null);
   const [filteredQuestion, setfilteredQuestion] = useState(null);
   const [loading, setloading] = useState(true);
@@ -139,12 +141,12 @@ export default function Home() {
     <Mainlayout>
       <main className="min-w-0 p-4 lg:p-6 ">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-          <h1 className="text-xl lg:text-2xl font-semibold">Top Questions</h1>
+          <h1 className="text-xl lg:text-2xl font-semibold">{t("home.topQuestions")}</h1>
           <button
             onClick={() => navigate("/ask")}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm font-medium whitespace-nowrap"
           >
-            Ask Question
+            {t("home.askQuestion")}
           </button>
         </div>
         <div className="w-full">

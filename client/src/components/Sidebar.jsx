@@ -12,27 +12,28 @@ import {
   Users,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
-import React from "react";
 import { Badge } from "./ui/badge";
+import { useTranslation } from "react-i18next";
 
 const Sidebar = ({ isopen }) => {
+  const { t } = useTranslation();
   const navItems = [
-    { to: "/", icon: Home, label: "Home" },
-    { to: "/questions", icon: MessageSquareIcon, label: "Questions" },
-    { to: "/ai-assist", icon: Bot, label: "AI Assist", badge: "Labs" },
-    { to: "/tags", icon: Tag, label: "Tags" },
-    { to: "/users", icon: Users, label: "Users" },
-    { to: "/saves", icon: Bookmark, label: "Saves" },
+    { to: "/", icon: Home, label: t("nav.home") || "Home" },
+    { to: "/questions", icon: MessageSquareIcon, label: t("nav.questions") || "Questions" },
+    { to: "/ai-assist", icon: Bot, label: t("nav.ai_assist") || "AI Assist", badge: "Labs" },
+    { to: "/tags", icon: Tag, label: t("nav.tags") || "Tags" },
+    { to: "/users", icon: Users, label: t("nav.users") || "Users" },
+    { to: "/saves", icon: Bookmark, label: t("nav.saves") || "Saves" },
     {
       to: "/challenges",
       icon: Trophy,
-      label: "Challenges",
+      label: t("nav.challenges") || "Challenges",
       badge: "NEW",
       badgeVariant: "orange"
     },
-    { to: "/chat", icon: MessageSquare, label: "Chat" },
-    { to: "/articles", icon: FileText, label: "Articles" },
-    { to: "/companies", icon: Building, label: "Companies" },
+    { to: "/chat", icon: MessageSquare, label: t("nav.chat") || "Chat" },
+    { to: "/articles", icon: FileText, label: t("nav.articles") || "Articles" },
+    { to: "/companies", icon: Building, label: t("nav.companies") || "Companies" },
   ];
 
   return (

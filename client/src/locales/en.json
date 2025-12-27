@@ -15,6 +15,21 @@
         "error": "Error",
         "success": "Success"
     },
+    "nav": {
+        "home": "Home",
+        "questions": "Questions",
+        "tags": "Tags",
+        "users": "Users",
+        "companies": "Companies",
+        "saves": "Saves",
+        "challenges": "Challenges",
+        "ai_assist": "AI Assist",
+        "chat": "Chat",
+        "articles": "Articles",
+        "about": "About",
+        "products": "Products",
+        "for_teams": "For Teams"
+    },
     "auth": {
         "loginTitle": "Log in to your account",
         "loginDescription": "Enter your email and password to access Stack Overflow",

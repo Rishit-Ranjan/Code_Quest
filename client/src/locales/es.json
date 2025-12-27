@@ -15,44 +15,40 @@
         "error": "Error",
         "success": "Éxito"
     },
+    "nav": {
+        "home": "Inicio",
+        "questions": "Preguntas",
+        "tags": "Etiquetas",
+        "users": "Usuarios",
+        "companies": "Empresas",
+        "saves": "Guardados",
+        "challenges": "Desafíos",
+        "ai_assist": "Asistente AI",
+        "chat": "Chat",
+        "articles": "Artículos",
+        "about": "Acerca de",
+        "products": "Productos",
+        "for_teams": "Para Equipos"
+    },
     "auth": {
         "loginTitle": "Inicia sesión en tu cuenta",
-        "loginDescription": "Ingresa tu correo y contraseña para acceder a Stack Overflow",
+        "loginDescription": "Introduce tu correo y contraseña para acceder a Stack Overflow",
         "signupTitle": "Crea tu cuenta",
         "forgotPassword": "¿Olvidaste tu contraseña?",
         "noAccount": "¿No tienes una cuenta?",
         "haveAccount": "¿Ya tienes una cuenta?",
-        "allFieldsRequired": "TODOS los campos son obligatorios",
+        "allFieldsRequired": "Todos los campos son obligatorios",
         "loginSuccessful": "Inicio de sesión exitoso",
         "signupSuccessful": "Registro exitoso",
         "loginFailed": "Error al iniciar sesión",
-        "enterOTP": "Ingresa OTP",
-        "otpSentEmail": "Ingresa el OTP enviado a tu correo"
+        "enterOTP": "Introduce el OTP",
+        "otpSentEmail": "Introduce el OTP enviado a tu correo",
+        "resendOTP": "Reenviar OTP"
     },
     "home": {
         "title": "Stack Overflow",
-        "topQuestions": "Preguntas principales",
+        "topQuestions": "Preguntas destacadas",
         "askQuestion": "Hacer pregunta",
         "allQuestions": "Todas las preguntas"
-    },
-    "questions": {
-        "askQuestion": "Hacer una pregunta",
-        "title": "Título",
-        "body": "Cuerpo",
-        "tags": "Etiquetas",
-        "post": "Publicar tu pregunta",
-        "answers": "Respuestas",
-        "views": "vistas",
-        "votes": "votos"
-    },
-    "language": {
-        "selectLanguage": "Seleccionar idioma",
-        "switchLanguage": "Cambiar idioma",
-        "verifyOTP": "Verificar OTP para cambiar idioma",
-        "otpSent": "OTP enviado",
-        "languageUpdated": "Idioma actualizado exitosamente",
-        "addPhoneFirst": "Por favor agrega y verifica tu número de teléfono primero",
-        "phoneNumber": "Número de teléfono",
-        "verifyPhone": "Verificar número de teléfono"
     }
 }

@@ -119,9 +119,7 @@ const LanguageSelector = () => {
                     <DialogHeader>
                         <DialogTitle>{t("language.verifyOTP")}</DialogTitle>
                         <DialogDescription>
-                            {otpMethod === "email"
-                                ? t("auth.otpSentEmail")
-                                : "Enter OTP sent to your phone"}
+                            {t("auth.otpSentEmail")}
                         </DialogDescription>
                     </DialogHeader>
                     <div className="space-y-4">
